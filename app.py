@@ -3,7 +3,6 @@ import numpy as np
 import requests
 from pyfiglet import Figlet
 
-
 app = Flask(__name__)
 
 @app.route('/hello')
@@ -13,6 +12,7 @@ def hello_world():
 @app.route('/v20180830', methods = ['GET'])
 def api():
     if request.method == 'GET':
+
         dictionary = {'var1':request.args.get('arg1'),
                       'var2':request.args.get('arg2')}
     return jsonify(dictionary)
