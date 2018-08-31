@@ -25,7 +25,7 @@ def api(input):
         inpt = request.form['text']
         output = f.renderText(inpt)
 
-        response = {"text": inpt, "attachments": [{"text": '```' + output + '```'}]}
+        response = {"response_type": "in_channel", "text": inpt, "attachments": [{"text": '```' + output + '```'}]}
 
         return jsonify(response)
 
