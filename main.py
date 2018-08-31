@@ -12,22 +12,22 @@ def hello_world():
 
 @app.route('/v20180830/<input>', methods = ['GET', 'POST'])
 def api(input):
-    if (request.method == 'POST') | (request.method == 'GET'):
+    if request.method == 'GET':
         font = np.random.choice(fonts)
         f = Figlet(font=font)
 
-    return f.renderText(input)
+        return f.renderText(input)
 
-# to access the above, use:
-# curl http://127.0.0.1:5000/v20180830/Hi.%20Youre%20awesome!
-# or
-# curl -X POST http://127.0.0.1:5000/v20180830/Hi.%20Youre%20awesome!
-#
-# and publicly:
-#
-# curl https://ascii-art-215023.appspot.com/v20180830/Hi.%20Youre%20awesome!
-# or
-#
+    if request.method == 'POST':
+        font = np.random.choice(fonts)
+        f = Figlet(font=font)
+
+        inpt = request.form['text']
+        output = f.renderText(inpt)
+
+        response = {"text": inpt, "attachments": [{"text": '```' + output + '```'}]}
+
+        return jsonify(response)
 
 if __name__ == '__main__':
     app.run()
